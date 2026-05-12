@@ -88,7 +88,7 @@ Create a `.env` file in the root directory and add your API keys:
 GROQ_API_KEY='your-groq-api-key'
 ```
 
-### Step 2: Extract Transcripts (Optional)
+### Step 2: Extract Transcripts
 If you add new `.mp4` videos to `inputs/channelvideo/`, you can extract their scripts to feed the RAG pipeline.
 Add your own background videos to the inputs/channelvideo/ folder to start their own factory!
 ```bash
