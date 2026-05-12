@@ -15,6 +15,7 @@ video_generated/*
 # Data directories (Users should provide their own videos/data)
 inputs/channelvideo/*
 inputs/rag_data/*
+!inputs/rag_data/*.txt
 assets/broll/*
 assets/video_images/*
 assets/character/*
