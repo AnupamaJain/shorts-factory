@@ -39,3 +39,6 @@ __pycache__/
 ._*
 .Spotlight-V100
 .Trashes
+
+# Allow .gitkeep files in ignored directories
+!.gitkeep
