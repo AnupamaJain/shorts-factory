@@ -130,6 +130,38 @@ python servers/mcp_server.py
 
 ---
 
+## 🛠️ The MCP Advantage: Control via AI Chat
+
+This project includes a **Model Context Protocol (MCP)** server (`servers/mcp_server.py`). This allows you to connect your Shorts Factory directly to **Claude Desktop** or any MCP-compatible AI agent.
+
+### Why use MCP?
+Instead of running terminal commands, you can simply chat with Claude:
+> *"Claude, research the 'Mathematics of Multibaggers' from my local RAG data and render a 35-second Reel about it."*
+
+Claude will autonomously call the local tools in this repository to:
+1.  🕵️ **Search** your local transcript database.
+2.  ✍️ **Draft** the script.
+3.  🎬 **Trigger** the local video rendering engine.
+
+### Setup (Claude Desktop)
+1. Install [Claude Desktop](https://claude.ai/download).
+2. Open your `claude_desktop_config.json`.
+3. Add the following entry:
+```json
+"mcpServers": {
+  "shorts-factory": {
+    "command": "python",
+    "args": ["/absolute/path/to/shorts-factory/servers/mcp_server.py"],
+    "env": {
+      "GROQ_API_KEY": "your_key_here",
+      "PYTHONPATH": "/absolute/path/to/shorts-factory"
+    }
+  }
+}
+```
+
+---
+
 ## 📁 Directory Structure
 - `agents/extract_transcripts.py`: Uses faster-whisper to transcribe your existing `.mp4` videos into `.txt` files.
 - `agents/rag.py`: The BM25 knowledge base. Chunks your `.txt` files and saves the retriever.
