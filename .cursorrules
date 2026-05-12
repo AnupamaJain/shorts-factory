@@ -1,0 +1,22 @@
+# AI Steering Rules for Shorts-Factory
+
+## General Project Context
+- **Project Goal**: An automated, AI-driven pipeline for generating highly engaging, production-grade YouTube Shorts about finance and algorithmic trading.
+- **Tone**: Professional, high-retention, leveraging psychological hooks (fear/greed), similar to the "Growth Blueprint" channel.
+- **Tech Stack**: Python, LangGraph, Groq, local BM25 RAG, edge_tts, moviepy, faster_whisper.
+
+## Coding Guidelines
+- **Paths**: Always use relative paths from the root directory (`/Users/admin/VideoEditor/shorts-factory/`).
+- **Safety**: Do not overwrite the `inputs/channelvideo/` data or `inputs/rag_data/` without explicit permission.
+- **APIs**: Always check for `.env` before utilizing LLM providers. Use `llama-3.3-70b-versatile` for Groq interactions by default.
+- **RAG Preference**: Prefer local execution (like `rank_bm25` and local transformers) over paid APIs to maintain low cost and high stability.
+
+## Multi-Agent Architecture
+- **Framework**: LangGraph.
+- **State Machine**: The workflow strictly follows: `Researcher` -> `Scriptwriter` -> `Guardrail Reviewer` -> `Director`.
+- **Guardrails**: Ensure the Guardrail agent acts strictly. It MUST reject any text resembling financial advice, guaranteed returns, or scammy hooks.
+
+## Video Generation
+- The video engine relies on `core/viral_storyteller.py`.
+- When updating video logic, ensure `KMP_DUPLICATE_LIB_OK=TRUE` is set in the environment to avoid OpenMP crashes.
+- Do not remove the `fast_render: true` setting in the `core/config.yaml` unless high quality is specifically requested.

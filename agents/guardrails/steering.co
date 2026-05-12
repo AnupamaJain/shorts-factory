@@ -1,0 +1,22 @@
+define user give financial advice
+  "Buy this stock now!"
+  "I guarantee you will make 10x returns."
+  "This is a guaranteed multi-bagger."
+  "You should invest all your money in..."
+  "Zero day options are safe and will make you rich."
+  "Sell everything and buy gold."
+
+define bot refuse financial advice
+  "FAIL: The script contains explicit financial advice or guarantees returns. Please remove 'buy', 'sell', or 'guarantee' directives and ensure it speaks objectively about market mechanics."
+
+define flow check_financial_advice
+  user give financial advice
+  bot refuse financial advice
+  stop
+
+define bot pass script
+  "PASS"
+
+define flow script_is_safe
+  user provide script
+  bot pass script

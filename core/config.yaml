@@ -1,0 +1,42 @@
+audio:
+  bgm_base_volume: 0.25
+  bgm_ducking_volume: 0.08
+  bgm_path: assets/bgm/bgm.mp3
+  enable_sfx: true
+  sfx_clock: assets/bgm/clock.wav
+  sfx_coin: assets/bgm/coin.wav
+  sfx_paper: assets/bgm/paper.wav
+  sfx_volume: 0.5
+  sfx_whoosh: assets/bgm/whoosh.wav
+captions:
+  color_danger: '#FFC1C1'
+  color_normal: yellow
+  enable_broll: true
+  enable_captions: true
+  font: /System/Library/Fonts/Supplemental/Arial Bold.ttf
+  margin:
+  - 20
+  - 20
+  size: 45
+editing:
+  bottom_crop_percent: 0.05
+  cinematic_zoom_pinch: 0.0
+  fast_render: true
+  maintain_original_resolution: true
+  trim_outro_seconds: 0.0
+narrator:
+  auto_extract_script: false
+  expressive_mode: true
+  external_audio_path: ''
+  pitch: +2Hz
+  rate: -10%
+  script_file: temp/agent_script.txt
+  use_original_audio: false
+  voice: en-US-AriaNeural
+video:
+  fps: 30
+  output: outputs/The_dangers_of_zero_day_options.mp4
+  resolution:
+  - 1920
+  - 1080
+  source: inputs/channelvideo/The_Quantitative_Chokehold__Engineering_Alpha_Through_Capitulat.mp4

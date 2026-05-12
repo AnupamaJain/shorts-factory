@@ -1,0 +1,41 @@
+# Environments
+venv/
+.env
+
+# API Keys & Secrets
+*.pem
+*.key
+
+# Output & Temp directories
+outputs/*
+temp/*
+scratch/*
+video_generated/*
+
+# Data directories (Users should provide their own videos/data)
+inputs/channelvideo/*
+inputs/rag_data/*
+assets/broll/*
+assets/video_images/*
+assets/character/*
+assets/icons/*
+assets/bgm/*
+inputs/*.mp4
+outputs/*.mp4
+
+# RAG & Agent files
+agents/bm25_retriever.pkl
+agents/chroma_db/
+
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes

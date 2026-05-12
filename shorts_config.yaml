@@ -1,0 +1,21 @@
+evaluator:
+  # Minimum score out of 10 required to pass to the Director. Scripts below this will be revised.
+  pass_threshold: 8
+  # The strict criteria DeepEval will use to grade the generated scripts.
+  criteria: "Determine if the script has a strong 3-second hook (fear/greed), is concise without fluff, and provides actionable authority/insight rather than generic advice."
+
+social_media:
+  # Number of hashtags to generate for the post
+  hashtag_count: 15
+  # The specific niche for targeted algorithms
+  niche: "finance/investing"
+  # Whether to use emojis in the description
+  include_emojis: true
+
+mcp_server:
+  # The name exposed to MCP clients (like Claude Desktop)
+  name: "ShortsFactoryMCP"
+
+publisher:
+  # Set to true to autonomously upload the generated video to Instagram
+  auto_post_instagram: true
