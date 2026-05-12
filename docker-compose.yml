@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  shorts-factory:
+    build: .
+    container_name: shorts-factory
+    env_file:
+      - .env
+    volumes:
+      # Mount the folders so generated videos appear on your host machine
+      - ./outputs:/app/outputs
+      - ./inputs:/app/inputs
+      - ./assets:/app/assets
+      - ./shorts_config.yaml:/app/shorts_config.yaml
+      - ./core/config.yaml:/app/core/config.yaml
+    stdin_open: true
+    tty: true
+    # Default command is just to stay alive if you want to exec in
+    command: tail -f /dev/null
+
+# Example usage:
+# docker-compose up -d
+# docker-compose exec shorts-factory python agents/graph.py "Your Topic"

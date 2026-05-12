@@ -128,6 +128,16 @@ python agents/text_to_video_agent.py "Don't let emotions ruin your trading accou
 python servers/mcp_server.py
 ```
 
+#### Workflow 4: Docker (Zero-Install)
+*Best for: Running the factory without worrying about FFmpeg or Python versions.*
+```bash
+# Build and start the container
+docker-compose up -d --build
+
+# Run the pipeline inside Docker
+docker-compose exec shorts-factory python agents/graph.py "Your Topic"
+```
+
 ---
 
 ## 🛠️ The MCP Advantage: Control via AI Chat
