@@ -3,6 +3,8 @@ from langchain_groq import ChatGroq
 from langchain_core.messages import HumanMessage
 from pydantic import BaseModel, Field
 import yaml
+import random
+import time
 
 # Load Configuration
 config_path = os.path.join(os.path.dirname(__file__), "..", "shorts_config.yaml")
@@ -25,7 +27,6 @@ def generate_instagram_metadata(script: str) -> dict:
     # Use LLaMA 3.3 for high-quality copywriting
     llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.8)
     
-    # We use structured output if possible, but since we want it raw, we can just prompt for a specific format.
     # Extract config
     niche = SHORTS_CONFIG.get("social_media", {}).get("niche", "finance/trading")
     hashtag_count = SHORTS_CONFIG.get("social_media", {}).get("hashtag_count", 15)
@@ -87,9 +88,11 @@ def generate_instagram_metadata(script: str) -> dict:
     import urllib.parse
     import requests
     encoded_prompt = urllib.parse.quote(thumbnail_prompt)
-    url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=1080&height=1920&nologo=true"
+    seed = random.randint(0, 999999)
+    url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=1080&height=1920&nologo=true&seed={seed}"
     
-    thumbnail_path = "outputs/custom_thumbnail.jpg"
+    timestamp = int(time.time())
+    thumbnail_path = f"outputs/thumbnail_{timestamp}.jpg"
     try:
         res = requests.get(url)
         if res.status_code == 200:

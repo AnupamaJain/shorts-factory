@@ -9,6 +9,7 @@ import json
 import sys
 import os
 import yaml
+import time
 
 # Ensure core module is accessible
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -48,7 +49,8 @@ def generate_video_from_script(user_input: str):
     The user provided this idea/script: "{user_input}"
     
     Expand this into a highly engaging, 30-35 second voiceover script (approximately 70-85 words).
-    Make it punchy, use psychological hooks (fear/greed), and ensure it flows naturally.
+    Make it punchy, authoritative, and focused on professional trading success and discipline.
+    Use high-energy hooks that promise the "secret" or "blueprint" to success.
     
     CRITICAL RULES:
     1. ONLY output the exact spoken words.
@@ -95,9 +97,11 @@ def generate_video_from_script(user_input: str):
     For each scene, write a highly detailed, cinematic image generation prompt.
     
     The prompts should:
-    1. Be descriptive, cinematic, and photorealistic (e.g., "A cinematic wide shot of a glowing red stock market chart in a dark room, 8k, highly detailed").
-    2. NOT include any text overlays (the video engine will add text).
-    3. Match the emotion of the script.
+    1. Be photorealistic, futuristic, and high-tech finance themed (8k, highly detailed, cinematic lighting).
+    2. Focus on professional success: glowing stock charts, modern luxury trading desks, advanced AI data visualizations, and confident professional traders.
+    3. NO SAD FACES, NO DESPAIR, NO CRYING. Use "Confident", "Successful", and "Visionary" expressions.
+    4. NOT include any text overlays (the video engine will add text).
+    5. Maintain a premium "Dark Mode" aesthetic (deep blues, neon greens, sleek blacks).
     
     Script:
     {script}
@@ -121,11 +125,11 @@ def generate_video_from_script(user_input: str):
     except Exception as e:
         print(f"Failed to parse LLM response: {e}. Using fallback scenes.")
         prompts = [
-            "A cinematic shot of a glowing neon stock market chart trending downwards, dark background, 8k",
-            "A stressed trader holding his head in hands in front of multiple computer monitors, photorealistic",
-            "A glowing green up arrow and golden coins floating in the air, 3d render, cinematic lighting",
-            "A futuristic AI robot analyzing financial data on a holographic screen, cyberpunk style",
-            "A peaceful luxury mansion on a hill at sunset, symbolizing financial freedom, 8k resolution"
+            "A cinematic wide shot of a glowing neon green stock market chart trending upwards in a futuristic dark room, 8k, photorealistic",
+            "A confident professional trader in a sleek suit looking at multiple holographic screens with complex financial data, cinematic lighting",
+            "A high-tech luxury trading desk with advanced monitors displaying golden bull market signals, 8k resolution, photorealistic",
+            "A futuristic AI brain processing streams of financial data and transforming them into gold coins, cyberpunk finance style",
+            "A successful person standing on a penthouse balcony at night, looking at a glowing cityscape, symbolizing financial freedom and success"
         ]
         
     print(f"🎬 Generated {len(prompts)} scene prompts:")
@@ -135,7 +139,8 @@ def generate_video_from_script(user_input: str):
     print("\n🚀 Initiating Text-to-Video Engine...")
     
     # Run the async video generation
-    output_file = "ai_generated_short.mp4"
+    run_id = int(time.time())
+    output_file = f"video_{run_id}.mp4"
     output_path = f"outputs/{output_file}"
     asyncio.run(create_new_video(script, prompts, output_file))
     print(f"\n🎉 Video Generation Complete! Saved to: {output_path}")

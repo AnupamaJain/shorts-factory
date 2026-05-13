@@ -9,6 +9,8 @@ from moviepy import (
 import edge_tts
 from faster_whisper import WhisperModel
 import numpy as np
+import random
+import shutil
 
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
@@ -16,7 +18,8 @@ def download_image(prompt, output_path):
     """Downloads an image from the free Pollinations AI API based on a prompt."""
     print(f"🎨 Generating image for prompt: {prompt[:50]}...")
     encoded_prompt = urllib.parse.quote(prompt)
-    url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=1080&height=1920&nologo=true"
+    seed = random.randint(0, 999999)
+    url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=1080&height=1920&nologo=true&seed={seed}"
     
     response = requests.get(url)
     if response.status_code == 200:
@@ -64,12 +67,12 @@ def create_captions(words_data, target_w, target_h):
                 font_path = "Arial" # Fallback
                 
             text = " ".join(phrase).upper()
-            txt = (TextClip(text=text, font=font_path, font_size=80, 
-                            color="yellow", stroke_color="black", stroke_width=3,
-                            method='caption', size=(int(target_w * 0.9), None),
+            txt = (TextClip(text=text, font=font_path, font_size=70, 
+                            color="white", bg_color="black",
+                            method='caption', size=(int(target_w * 0.8), None),
                             text_align='center', vertical_align='center')
                     .with_start(start_t).with_duration(duration)
-                    .with_position(('center', target_h * 0.75)))
+                    .with_position(('center', target_h * 0.7)))
             caption_clips.append(txt)
             phrase = []
             start_t = None
@@ -85,11 +88,17 @@ def apply_ken_burns(clip, duration):
     return clip.cropped(x_center=w/2, y_center=h/2, width=1080, height=1920)
 
 async def create_new_video(script_text, image_prompts, output_filename="ai_generated_short.mp4"):
-    os.makedirs("temp/scenes", exist_ok=True)
+    # Create a unique scene directory for this specific run to avoid collisions
+    run_id = output_filename.split('.')[0].replace('video_', '')
+    scene_dir = f"temp/scenes_{run_id}"
+    
+    if os.path.exists(scene_dir):
+        shutil.rmtree(scene_dir)
+    os.makedirs(scene_dir, exist_ok=True)
     os.makedirs("outputs", exist_ok=True)
     
     # 1. Generate Audio
-    audio_path = "temp/ai_audio.mp3"
+    audio_path = f"temp/audio_{run_id}.mp3"
     await generate_audio(script_text, audio_path)
     vo_audio = AudioFileClip(audio_path)
     total_dur = vo_audio.duration
@@ -103,7 +112,7 @@ async def create_new_video(script_text, image_prompts, output_filename="ai_gener
     last_t = 0
     
     for i, prompt in enumerate(image_prompts):
-        img_path = f"temp/scenes/scene_{i}.jpg"
+        img_path = f"{scene_dir}/scene_{i}.jpg"
         download_image(prompt, img_path)
         
         # Calculate duration for this image based on sentence ends or divide evenly
